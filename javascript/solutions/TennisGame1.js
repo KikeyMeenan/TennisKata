@@ -13,20 +13,12 @@ TennisGame1.prototype.wonPoint = function(playerName) {
 };
 
 var ScoreToWords = function (score) {
-    switch (score) {
-        case 0:
-            return "Love";
-            break;
-        case 1:
-            return "Fifteen";
-            break;
-        case 2:
-            return "Thirty";
-            break;
-        case 3:
-            return "Forty";
-            break;
-    };
+    return [
+        "Love",
+        "Fifteen",
+        "Thirty",
+        "Forty"
+    ][score]
 }
 
 var isEvenScore = function(score1, score2){
@@ -38,20 +30,10 @@ var isAdvantageScore = function(score1, score2){
 }
 
 var GetEvenScoreInWords = function (score) {
-    switch (score) {
-        case 0:
-            return "Love-All";
-            break;
-        case 1:
-            return "Fifteen-All";
-            break;
-        case 2:
-            return "Thirty-All";
-            break;
-        default:
-            return "Deuce";
-            break;
+    if(score >= 3){
+        return "Deuce"
     }
+    return ScoreToWords(score) + "-All"
 }
 
 var GetAdvantageScoreInWords = function (minusResult) {
