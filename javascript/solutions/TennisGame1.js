@@ -44,17 +44,7 @@ var GetAdvantageScoreInWords = function (minusResult) {
 }
 
 var GetScoreInWords = function(score1, score2) {
-    var score = "";
-    var tempScore = 0;
-    for (var i = 1; i < 3; i++) {
-        if (i === 1) tempScore = score1;
-        else {
-            score += "-";
-            tempScore = score2;
-        }
-        score += ScoreToWords(tempScore);
-    }
-    return score
+    return ScoreToWords(score1) + "-" + ScoreToWords(score2)
 }
 
 TennisGame1.prototype.getScore = function() {
