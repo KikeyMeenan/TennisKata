@@ -6,6 +6,8 @@ namespace Tennis
         private int player2Score = 0;
         private readonly string player1Name;
         private readonly string player2Name;
+        private bool isEvenScore { get { return player1Score == player2Score; } }
+        private bool isEndGameScore { get { return player1Score >= 4 || player2Score >= 4; } }
 
         public TennisGame1(string player1Name, string player2Name)
         {
@@ -21,36 +23,42 @@ namespace Tennis
                 player2Score += 1;
         }
 
+        private string GetEvenScore()
+        {
+            switch (player1Score)
+            {
+                case 0:
+                    return "Love-All";
+                case 1:
+                    return "Fifteen-All";
+                case 2:
+                    return "Thirty-All";
+                default:
+                    return "Deuce";
+
+            }
+        }
+
+        private string GetEndGameScore()
+        {
+            var minusResult = player1Score - player2Score;
+            if (minusResult == 1) return "Advantage player1";
+            else if (minusResult == -1) return "Advantage player2";
+            else if (minusResult >= 2) return "Win for player1";
+            return "Win for player2";
+        }
+
         public string GetScore()
         {
             string score = "";
             var tempScore = 0;
-            if (player1Score == player2Score)
+            if (isEvenScore)
             {
-                switch (player1Score)
-                {
-                    case 0:
-                        score = "Love-All";
-                        break;
-                    case 1:
-                        score = "Fifteen-All";
-                        break;
-                    case 2:
-                        score = "Thirty-All";
-                        break;
-                    default:
-                        score = "Deuce";
-                        break;
-
-                }
+                score = GetEvenScore();
             }
-            else if (player1Score >= 4 || player2Score >= 4)
+            else if (isEndGameScore)
             {
-                var minusResult = player1Score - player2Score;
-                if (minusResult == 1) score = "Advantage player1";
-                else if (minusResult == -1) score = "Advantage player2";
-                else if (minusResult >= 2) score = "Win for player1";
-                else score = "Win for player2";
+                score = GetEndGameScore();
             }
             else
             {
