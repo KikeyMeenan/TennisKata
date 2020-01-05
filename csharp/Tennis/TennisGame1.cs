@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+
 namespace Tennis
 {
     class TennisGame1 : ITennisGame
@@ -25,65 +27,46 @@ namespace Tennis
 
         private string GetEvenScore()
         {
-            switch (player1Score)
+            if (player1Score <= 2)
             {
-                case 0:
-                    return "Love-All";
-                case 1:
-                    return "Fifteen-All";
-                case 2:
-                    return "Thirty-All";
-                default:
-                    return "Deuce";
-
+                return $"{Score[player1Score]}-All";
             }
+
+            return "Deuce";
         }
 
         private string GetEndGameScore()
         {
             var minusResult = player1Score - player2Score;
-            if (minusResult == 1) return "Advantage player1";
-            else if (minusResult == -1) return "Advantage player2";
-            else if (minusResult >= 2) return "Win for player1";
-            return "Win for player2";
+            if (minusResult == 1) return $"Advantage {player1Name}";
+            else if (minusResult == -1) return $"Advantage {player2Name}";
+            else if (minusResult >= 2) return $"Win for {player1Name}";
+            return $"Win for {player2Name}";
+        }
+
+        private Dictionary<int, string> Score = new Dictionary<int, string>(){
+            {0, "Love"},
+            {1, "Fifteen"},
+            {2, "Thirty"},
+            {3, "Forty"},
+        };
+
+        private string GetNormalScore()
+        {
+            return $"{Score[player1Score]}-{Score[player2Score]}";
         }
 
         public string GetScore()
         {
-            string score = "";
-            var tempScore = 0;
             if (isEvenScore)
             {
-                score = GetEvenScore();
+                return GetEvenScore();
             }
-            else if (isEndGameScore)
+            if (isEndGameScore)
             {
-                score = GetEndGameScore();
+                return GetEndGameScore();
             }
-            else
-            {
-                for (var i = 1; i < 3; i++)
-                {
-                    if (i == 1) tempScore = player1Score;
-                    else { score += "-"; tempScore = player2Score; }
-                    switch (tempScore)
-                    {
-                        case 0:
-                            score += "Love";
-                            break;
-                        case 1:
-                            score += "Fifteen";
-                            break;
-                        case 2:
-                            score += "Thirty";
-                            break;
-                        case 3:
-                            score += "Forty";
-                            break;
-                    }
-                }
-            }
-            return score;
+            return GetNormalScore();
         }
     }
 }
