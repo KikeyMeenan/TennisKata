@@ -5,32 +5,25 @@ namespace Tennis
 {
     class TennisGame1 : ITennisGame
     {
-        // use a list of players instead? could use linq to identify player then
-        private Player player1;
-        private Player player2;
+        private List<Player> players;
         private List<IGameScore> gameScores;
 
         public TennisGame1(string player1Name, string player2Name)
         {
-            this.player1 = new Player(player1Name);
-            this.player2 = new Player(player2Name);
+            players.Add(new Player(player1Name));
+            players.Add(new Player(player2Name));
             gameScores = new List<IGameScore>()
             {
-                new NormalGameScore(player1, player2),
-                new TieGameScore(player1, player2),
-                new AdvantageGameScore(player1, player2),
-                new WinningGameScore(player1, player2)
+                new NormalGameScore(players[0], players[1]),
+                new TieGameScore(players[0], players[1]),
+                new AdvantageGameScore(players[0], players[1]),
+                new WinningGameScore(players[0], players[1])
             };
-        }
-
-        private Player GetPlayer(string playerName)
-        {
-            return playerName == player1.name ? player1 : player2;
         }
 
         public void WonPoint(string playerName)
         {
-            GetPlayer(playerName).WonPoint();
+            players.Single(x => x.name == playerName).WonPoint();
         }
 
         public string GetScore()
