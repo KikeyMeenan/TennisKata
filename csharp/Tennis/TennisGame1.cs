@@ -2,20 +2,6 @@ using System.Collections.Generic;
 
 namespace Tennis
 {
-    class Player {
-        public int score;
-        public string name;
-
-        public Player(string name) {
-            this.name = name;
-            this.score = 0;
-        }
-
-        public void WonPoint(){
-            this.score ++;
-        }
-    }
-
     class TennisGame1 : ITennisGame
     {
         private Player player1;
@@ -29,12 +15,14 @@ namespace Tennis
             this.player2 = new Player(player2Name);
         }
 
+        private Player GetPlayer(string playerName)
+        {
+            return playerName == player1.name ? player1 : player2;
+        }
+
         public void WonPoint(string playerName)
         {
-            if (playerName == player1.name)
-                player1.WonPoint();
-            else
-                player2.WonPoint();
+            GetPlayer(playerName).WonPoint();
         }
 
         private string GetEvenScore()
