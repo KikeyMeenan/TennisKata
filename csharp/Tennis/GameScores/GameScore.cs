@@ -1,6 +1,6 @@
 namespace Tennis
 {
-    public abstract class GameScore
+    public abstract class GameScore: IGameScore
     {
         protected Player player1;
         protected Player player2;
