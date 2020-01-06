@@ -4,9 +4,9 @@ namespace Tennis
     {
         public WinningGameScore(Player Player1, Player Player2) : base(Player1, Player2) { }
 
-        public override bool Condition()
+        public override bool Condition
         {
-            return player1.HasWonAgainst(player2) || player2.HasWonAgainst(player1);
+            get => player1.HasWonAgainst(player2) || player2.HasWonAgainst(player1);
         }
 
         public override string Output

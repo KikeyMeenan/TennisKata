@@ -4,9 +4,9 @@ namespace Tennis
     {
         public TieGameScore(Player Player1, Player Player2) : base(Player1, Player2) { }
 
-        public override bool Condition()
+        public override bool Condition
         {
-            return player1.score == player2.score;
+            get => player1.score == player2.score;
         }
 
         public override string Output

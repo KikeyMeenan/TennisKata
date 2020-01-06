@@ -2,7 +2,7 @@ namespace Tennis
 {
     public interface IGameScore
     {
-        bool Condition();
+        bool Condition { get; }
         string Output { get; }
     }
 }

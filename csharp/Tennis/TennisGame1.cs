@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Tennis
 {
@@ -34,13 +35,7 @@ namespace Tennis
 
         public string GetScore()
         {
-            var score = "";
-            for(var i = 0; i < gameScores.Count; i++){
-                if(gameScores[i].Condition()){
-                    score = gameScores[i].Output;
-                }
-            }
-            return score;
+            return gameScores.Single(x => x.Condition == true).Output;
         }
     }
 }

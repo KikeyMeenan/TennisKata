@@ -9,7 +9,7 @@ namespace Tennis
             player1 = Player1;
             player2 = Player2;
         }
-        public abstract bool Condition();
+        public abstract bool Condition { get; }
         public abstract string Output { get; }
     }
 }
