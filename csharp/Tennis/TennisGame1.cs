@@ -2,34 +2,46 @@ using System.Collections.Generic;
 
 namespace Tennis
 {
+    class Player {
+        public int score;
+        public string name;
+
+        public Player(string name) {
+            this.name = name;
+            this.score = 0;
+        }
+
+        public void WonPoint(){
+            this.score ++;
+        }
+    }
+
     class TennisGame1 : ITennisGame
     {
-        private int player1Score = 0;
-        private int player2Score = 0;
-        private readonly string player1Name;
-        private readonly string player2Name;
-        private bool isEvenScore { get { return player1Score == player2Score; } }
-        private bool isEndGameScore { get { return player1Score >= 4 || player2Score >= 4; } }
+        private Player player1;
+        private Player player2;
+        private bool isEvenScore { get { return player1.score == player2.score; } }
+        private bool isEndGameScore { get { return player1.score >= 4 || player2.score >= 4; } }
 
         public TennisGame1(string player1Name, string player2Name)
         {
-            this.player1Name = player1Name;
-            this.player2Name = player2Name;
+            this.player1 = new Player(player1Name);
+            this.player2 = new Player(player2Name);
         }
 
         public void WonPoint(string playerName)
         {
-            if (playerName == player1Name)
-                player1Score += 1;
+            if (playerName == player1.name)
+                player1.WonPoint();
             else
-                player2Score += 1;
+                player2.WonPoint();
         }
 
         private string GetEvenScore()
         {
-            if (player1Score <= 2)
+            if (player1.score <= 2)
             {
-                return $"{Score[player1Score]}-All";
+                return $"{Score[player1.score]}-All";
             }
 
             return "Deuce";
@@ -37,11 +49,11 @@ namespace Tennis
 
         private string GetEndGameScore()
         {
-            var minusResult = player1Score - player2Score;
-            if (minusResult == 1) return $"Advantage {player1Name}";
-            else if (minusResult == -1) return $"Advantage {player2Name}";
-            else if (minusResult >= 2) return $"Win for {player1Name}";
-            return $"Win for {player2Name}";
+            var minusResult = player1.score - player2.score;
+            if (minusResult == 1) return $"Advantage {player1.name}";
+            else if (minusResult == -1) return $"Advantage {player2.name}";
+            else if (minusResult >= 2) return $"Win for {player1.name}";
+            return $"Win for {player2.name}";
         }
 
         private Dictionary<int, string> Score = new Dictionary<int, string>(){
@@ -53,7 +65,7 @@ namespace Tennis
 
         private string GetNormalScore()
         {
-            return $"{Score[player1Score]}-{Score[player2Score]}";
+            return $"{Score[player1.score]}-{Score[player2.score]}";
         }
 
         public string GetScore()
